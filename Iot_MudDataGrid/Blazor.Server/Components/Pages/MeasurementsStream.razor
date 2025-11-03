@@ -1,0 +1,38 @@
+@page "/measurements-stream"
+
+<PageTitle>Measurements</PageTitle>
+
+@if (_error is not null)
+{
+    <text>@_error</text>
+}
+else if (_isLoading)
+{
+    <text>Loading...</text>
+}
+else
+{
+    <table border="1" cellpadding="4" cellspacing="0">
+        <thead>
+            <tr>
+                <th>Sensor</th>
+                <th>Location</th>
+                <th>Date</th>
+                <th>Time</th>
+                <th>Value</th>
+            </tr>
+        </thead>
+        <tbody>
+        @foreach (var item in _items)
+        {
+            <tr>
+                <td>@item.SensorName</td>
+                <td>@item.Location</td>
+                <td>@item.Date</td>
+                <td>@item.Time</td>
+                <td style="text-align:right">@item.Value</td>
+            </tr>
+        }
+        </tbody>
+    </table>
+}

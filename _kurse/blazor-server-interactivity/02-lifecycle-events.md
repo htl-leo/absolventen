@@ -786,10 +786,10 @@ Die Prerendering-Herausforderungen, die Sie in diesem Modul kennengelernt haben,
 
 ---
 
-Im nächsten Modul werden wir uns mit **State Management** und **Component Communication** beschäftigen.
+Im nächsten Modul werden wir praktisch arbeiten und **drei verschiedene Implementierungsansätze** für große Datenmengen in einer IoT-Anwendung kennenlernen.
 
 ---
 
-[← Zurück zu Modul 1](../blazor-server-interactivity/01-clean-architecture-setup) | [Zurück zur Kursübersicht](../blazor-server-interactivity)
+[← Zurück zu Modul 1](../blazor-server-interactivity/01-clean-architecture-setup) | [Weiter zu Modul 3: IoT Measurements →](../blazor-server-interactivity/03-measurements-implementation) | [Zurück zur Kursübersicht](../blazor-server-interactivity)
 
 **Kontakt:** kurse@htl-absolventen.at

@@ -104,19 +104,11 @@ Die Anwendung arbeitet mit IoT-Messdaten:
 - **Sensoren** mit Location und Name
 - **Messwerte** (Measurements) mit Timestamp und numerischem Value
 - Große Datenmengen (mehrere tausend Datensätze)
-  - Service-Instanzen (DI Container)
-  - Event-Handler
-- Circuit wird beim Verbindungsabbruch automatisch nach Timeout (Standard: 3 Minuten) aufgeräumt
----
-#### 5. **Vorteile der Server-seitigen Verarbeitung**
-## Übungsablauf
-**Security:**
-In dieser Übung entwickeln wir in drei Schritten eine performante Blazor Server Anwendung zur Darstellung von IoT-Messdaten.
-- Keine Übertragung großer Datenmengen zum Client
+
 ### Projektstruktur
-- Voller Zugriff auf .NET-Ökosystem und NuGet-Packages
+
 Das Projekt `Iot_MudDataGrid` folgt der Clean Architecture:
-- Jede Benutzerinteraktion erfordert Server-Roundtrip
+
 ```
 Iot_MudDataGrid/
 ├── Domain/              # Entities, Interfaces, Specifications
@@ -124,7 +116,7 @@ Iot_MudDataGrid/
 ├── Infrastructure/      # EF Core, Repositories, UnitOfWork
 └── Blazor.Server/       # UI-Layer (Razor Components)
 ```
-- Server muss viele gleichzeitige Circuits verwalten
+
 ---
 
 ## Schritt 1: Einfache HTML-Tabelle (Measurements Simple)

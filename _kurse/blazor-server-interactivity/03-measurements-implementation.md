@@ -280,7 +280,29 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 
 ### Die Lösung
 
-Statt alle Daten auf einmal zu laden, verwenden wir **IAsyncEnumerable** für Streaming. Die ersten Datensätze werden sofort angezeigt, während weitere im Hintergrund nachgeladen werden.
+Statt alle Daten auf einmal zu laden, verwenden wir **IAsyncEnumerable** für ein schrittweises Laden und Rendern.
+
+Wie es technisch funktioniert:
+- Backend liefert einen asynchronen Datenstrom: `IAsyncEnumerable<T>` (hier per MediatR `CreateStream(...)`).
+- Die Komponente iteriert mit `await foreach` und fügt die Elemente sukzessive in eine Liste ein.
+- Sichtbare UI-Updates passieren erst, wenn `StateHasChanged()` aufgerufen wird – deshalb bündeln wir Updates (z. B. alle 50 Elemente), um SignalR‑Traffic zu reduzieren.
+- EF Core liest die Daten sequenziell (über `AsAsyncEnumerable()`), wodurch der Peak‑Speicher sinkt – aber die Gesamtmenge bleibt gleich, wenn keine Filterung aktiv ist.
+
+Wichtige Eigenschaften des Streamings:
+- Geringere Time‑to‑First‑Row: Erste Ergebnisse erscheinen nach wenigen 100 ms.
+- Fortschrittsgefühl: Nutzer kann bereits lesen/scrollen, während weitere Daten eintreffen.
+- Steuerbar: Über Batch‑Größe (z. B. 50/100) lässt sich die Renderfrequenz feinjustieren.
+
+Grenzen und Trade‑offs:
+- Es werden trotzdem alle Datensätze übertragen, sofern nicht gefiltert/gepaged wird → Server‑ und Netzwerk‑Last bleiben hoch.
+- Mehr DOM‑Diffs durch häufigere Re‑Renders (wir entschärfen das durch Batch‑Updates).
+- Streaming beendet sich bei Verbindungsabbruch; beim erneuten Verbinden muss der Stream neu gestartet werden.
+
+Best Practices:
+- UI‑Updates in Batches (50–200): `StateHasChanged()` nicht für jedes Element.
+- `CancellationToken` sauber unterstützen (Komponente kann Stream abbrechen).
+- `AsNoTracking()` und DTO‑Projektion verwenden, um Overhead zu minimieren.
+- Für 40k+ Datensätze: Streaming nur für „frühe Sichtbarkeit“ nutzen; für effizientes Browsen weiterhin Server‑seitiges Paging vorziehen.
 
 **Prinzip:**
 ```

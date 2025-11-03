@@ -853,9 +853,9 @@ Nach Abschluss dieses Kurses können Sie:
 
 Dieser Kurs ist in mehrere Module unterteilt:
 
-1. [**Modul 1: Setup auf Clean Architecture Stack**](blazor-server-interactivity/01-clean-architecture-setup) - Aufbau einer Blazor Server Anwendung auf einem bestehenden Clean Architecture Stack
-2. [**Modul 2: Page Lifecycle Events & Prerendering**](blazor-server-interactivity/02-lifecycle-events) - Detaillierte Untersuchung der Lifecycle Events und des Prerendering-Konzepts
-3. [**Modul 3: IoT Measurements - Drei Implementierungsansätze**](blazor-server-interactivity/03-measurements-implementation) - Praktische Übung mit drei Performance-Optimierungsansätzen
+1. [**Modul 1: Setup auf Clean Architecture Stack**](01-clean-architecture-setup) - Aufbau einer Blazor Server Anwendung auf einem bestehenden Clean Architecture Stack
+2. [**Modul 2: Page Lifecycle Events & Prerendering**](02-lifecycle-events) - Detaillierte Untersuchung der Lifecycle Events und des Prerendering-Konzepts
+3. [**Modul 3: IoT Measurements - Drei Implementierungsansätze**](03-measurements-implementation) - Praktische Übung mit drei Performance-Optimierungsansätzen
 
 ---
 

@@ -607,6 +607,185 @@ Sie haben gelernt:
 3. **firstRender-Parameter** ist der Schlüssel zum Unterscheiden der Phasen
 4. **JSInterop nur nach erstem Render** - vorher ist JavaScript nicht verfügbar
 
+---
+
+## Ausblick: .NET 10 löst das Prerendering-Problem! 🎉
+
+Die gute Nachricht: **Ab .NET 10 gibt es eine elegante Lösung für das Prerendering-Problem!**
+
+### Das Problem heute (bis .NET 9)
+
+Aktuell müssen Sie mit folgenden Herausforderungen umgehen:
+
+- ⚠️ **Doppelte Datenbank-Abfragen** - Daten werden beim Prerendering und beim Interactive-Rendering geladen
+- ⚠️ **"Flash of Content"** - Benutzer sehen ein kurzes Flackern, wenn Daten verschwinden und neu geladen werden
+- ⚠️ **State-Verlust** - Daten aus der Prerender-Phase gehen verloren
+- ⚠️ **Workarounds nötig** - Entweder Prerendering deaktivieren (schlecht für SEO) oder komplexe State-Container implementieren
+
+### Die Lösung in .NET 10: `[PersistentState]` Attribute
+
+Microsoft führt mit .NET 10 das **`[PersistentState]` Attribute** ein, das dieses Problem elegant löst.
+
+#### Wie es funktioniert:
+
+```csharp
+public partial class Weather
+{
+    [Inject]
+    private IMediator Mediator { get; set; } = default!;
+
+    // 🎉 NEU in .NET 10: PersistentState Attribute
+    [PersistentState(AllowUpdates = true)]
+    public IEnumerable<SensorDto>? Sensors { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Wird nur EINMAL aufgerufen - beim Prerendering
+        if (Sensors is null)
+        {
+            Sensors = await Mediator.Send(new GetAllSensorsQuery());
+        }
+        // Beim Interactive-Rendering sind die Daten bereits da!
+        // Kein zweiter Query nötig! 🚀
+    }
+}
+```
+
+#### Was passiert unter der Haube?
+
+```
+Phase 1: Prerendering (Server)
+├─ OnInitializedAsync() wird aufgerufen
+├─ Daten werden von der Datenbank geladen
+├─ Blazor serialisiert die Daten automatisch
+├─ HTML + serialisierte Daten werden zum Browser geschickt
+└─ Komponente wird disposed
+
+Phase 2: Interactive Rendering (SignalR)
+├─ OnInitializedAsync() wird aufgerufen
+├─ Blazor deserialisiert die gespeicherten Daten automatisch
+├─ if (Sensors is null) ← FALSE! Daten sind bereits da
+└─ Keine doppelte Datenbankabfrage! ✅
+```
+
+#### Vorteile:
+
+✅ **Keine doppelten Queries** - Datenbank wird nur einmal abgefragt
+✅ **Kein Flackern** - Benutzer sehen kontinuierliche Daten ohne Flash
+✅ **Bessere Performance** - Weniger Netzwerk-Traffic, weniger Server-Last
+✅ **SEO-freundlich** - Prerendering bleibt aktiviert, Suchmaschinen sehen vollständiges HTML
+✅ **Einfacher Code** - Kein komplexer State-Management-Workaround nötig
+
+#### Zusätzliche Optionen:
+
+```csharp
+// Standardverhalten: Daten werden zwischen Phases geteilt
+[PersistentState]
+public IEnumerable<SensorDto>? Sensors { get; set; }
+
+// Erlaubt Updates während der Navigation
+[PersistentState(AllowUpdates = true)]
+public IEnumerable<SensorDto>? Sensors { get; set; }
+
+// Feinsteuerung des Restore-Verhaltens
+[PersistentState(
+    AllowUpdates = true, 
+    RestoreBehavior = RestoreBehavior.SkipLastSnapshot)]
+public IEnumerable<SensorDto>? Sensors { get; set; }
+```
+
+#### RestoreBehavior Optionen:
+
+- **`Default`**: Alle Daten werden wiederhergestellt (Standard)
+- **`SkipInitialValue`**: Prerendered-Daten werden beim Start übersprungen
+- **`SkipLastSnapshot`**: Letzter gespeicherter State wird übersprungen
+
+#### Wann ist es besonders nützlich?
+
+Das `[PersistentState]` Attribute ist ideal für:
+
+- 📊 **Dashboards** mit Real-Time Daten
+- 🛒 **E-Commerce Seiten** mit Produktlisten
+- 📰 **Content-Seiten** mit SEO-Anforderungen
+- 🔄 **Hybrid Apps** mit gemischten Render-Modes
+
+#### Verbindungsabbrüche (Blazor Server)
+
+Ein weiterer Bonus: Bei SignalR-Verbindungsabbrüchen bleiben die Daten erhalten!
+
+```javascript
+// Test in Browser-Console:
+Blazor.pauseCircuit()  // Verbindung unterbrechen
+// Daten bleiben sichtbar!
+
+// Verbindung wiederherstellen
+// Daten sind immer noch da! ✅
+```
+
+### Migration von .NET 9 zu .NET 10
+
+**Vorher (aktueller Code):**
+
+```csharp
+public partial class Sensors
+{
+    [Inject]
+    private StateContainer State { get; set; } = default!;  // Workaround nötig
+    
+    private IEnumerable<SensorDto>? sensors;
+
+    protected override async Task OnInitializedAsync()
+    {
+        // Komplexe Logik um doppelte Queries zu vermeiden
+        if (State.Sensors is null)
+        {
+            State.Sensors = await Mediator.Send(new GetAllSensorsQuery());
+        }
+        sensors = State.Sensors;
+    }
+}
+```
+
+**Nachher (.NET 10):**
+
+```csharp
+public partial class Sensors
+{
+    [PersistentState]  // ✨ Das ist alles!
+    public IEnumerable<SensorDto>? Sensors { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        if (Sensors is null)
+        {
+            Sensors = await Mediator.Send(new GetAllSensorsQuery());
+        }
+    }
+}
+```
+
+**Viel einfacher!** 🎉
+
+### Zeitplan
+
+- **Oktober 2024**: .NET 9 Release - Prerendering-Probleme bestehen noch
+- **November 2024**: .NET 10 RC1 - `[PersistentState]` verfügbar zum Testen
+- **November 2025**: .NET 10 GA (General Availability) - Produktionsbereit
+
+### Ressourcen
+
+- 📝 [.NET Web Academy: Blazor Prerendering is Finally SOLVED in .NET 10!](https://dotnetwebacademy.substack.com/p/net-10-finally-fixes-prerendering)
+- 📹 [YouTube Tutorial: .NET 10 Persistent State](https://www.youtube.com/watch?v=5gw3RA1pp0E) (von Patrick God)
+- 📖 [Microsoft Docs: Persistent Component State](https://learn.microsoft.com/en-us/aspnet/core/blazor/components/prerendering-and-integration)
+
+### Fazit
+
+Die Prerendering-Herausforderungen, die Sie in diesem Modul kennengelernt haben, werden mit .NET 10 deutlich einfacher zu lösen sein. Das `[PersistentState]` Attribute ist ein Game-Changer für Blazor-Entwicklung!
+
+**Bis dahin:** Nutzen Sie die Best Practices aus diesem Modul - sie funktionieren weiterhin hervorragend. Ab .NET 10 wird Ihr Code dann nur noch eleganter und performanter! 🚀
+
+---
+
 Im nächsten Modul werden wir uns mit **State Management** und **Component Communication** beschäftigen.
 
 ---

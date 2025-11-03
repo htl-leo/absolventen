@@ -70,7 +70,7 @@ Erstellen Sie `Application/Features/Measurements/Queries/GetAllMeasurementsSimpl
 ```csharp
 using Application.Features.Dtos;
 using MediatR;
-using SharedKernel;
+using Application.Common.Results;
 
 namespace Application.Features.Measurements.Queries;
 
@@ -84,7 +84,7 @@ Erstellen Sie den Handler `GetAllMeasurementsSimpleQueryHandler.cs`:
 using Application.Features.Dtos;
 using Application.Interfaces;
 using MediatR;
-using SharedKernel;
+using Application.Common.Results;
 
 namespace Application.Features.Measurements.Queries;
 
@@ -628,7 +628,7 @@ Erstellen Sie `GetMeasurementsBySensorIdPagedQuery.cs`:
 ```csharp
 using Application.Features.Dtos;
 using MediatR;
-using SharedKernel;
+using Application.Common.Results;
 
 namespace Application.Features.Measurements.Queries;
 
@@ -641,46 +641,10 @@ public sealed record GetMeasurementsBySensorIdPagedQuery(
 
 #### 3. PagedResult Helper-Klasse
 
-Erstellen Sie `SharedKernel/PagedResult.cs`:
+Verwenden Sie die bereits vorhandene Klasse `PagedResult<T>` aus dem Application Layer (`Application.Common.Results`). Fügen Sie in Ihren Dateien das Using hinzu:
 
 ```csharp
-namespace SharedKernel;
-
-public sealed class PagedResult<T>
-{
-    public IReadOnlyCollection<T> Items { get; init; } = [];
-    public int TotalCount { get; init; }
-    public int Page { get; init; }
-    public int PageSize { get; init; }
-    public int TotalPages => (int)Math.Ceiling(TotalCount / (double)PageSize);
-    public bool IsSuccess { get; init; }
-    public string? Message { get; init; }
-
-    public static PagedResult<T> Success(
-        IReadOnlyCollection<T> items, 
-        int totalCount, 
-        int page, 
-        int pageSize)
-    {
-        return new PagedResult<T>
-        {
-            Items = items,
-            TotalCount = totalCount,
-            Page = page,
-            PageSize = pageSize,
-            IsSuccess = true
-        };
-    }
-
-    public static PagedResult<T> Failure(string message)
-    {
-        return new PagedResult<T>
-        {
-            IsSuccess = false,
-            Message = message
-        };
-    }
-}
+using Application.Common.Results;
 ```
 
 #### 4. Paged Query Handler
@@ -691,7 +655,7 @@ Erstellen Sie `GetMeasurementsBySensorIdPagedQueryHandler.cs`:
 using Application.Features.Dtos;
 using Application.Interfaces;
 using MediatR;
-using SharedKernel;
+using Application.Common.Results;
 
 namespace Application.Features.Measurements.Queries;
 
@@ -784,7 +748,7 @@ Erstellen Sie `GetAllSensorsQuery.cs`:
 ```csharp
 using Application.Features.Dtos;
 using MediatR;
-using SharedKernel;
+using Application.Common.Results;
 
 namespace Application.Features.Sensors.Queries;
 

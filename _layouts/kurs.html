@@ -1,0 +1,35 @@
+---
+layout: default
+---
+<article class="kurs">
+    <div class="container">
+        <header class="kurs-header">
+            <h1 class="kurs-title">{{ page.title }}</h1>
+            <div class="kurs-meta">
+                {% if page.dozent %}
+                <div class="kurs-dozent">
+                    <strong>Dozent:</strong> {{ page.dozent }}
+                </div>
+                {% endif %}
+                {% if page.dauer %}
+                <div class="kurs-dauer">
+                    <strong>Dauer:</strong> {{ page.dauer }}
+                </div>
+                {% endif %}
+                {% if page.level %}
+                <div class="kurs-level">
+                    <strong>Level:</strong> {{ page.level }}
+                </div>
+                {% endif %}
+            </div>
+        </header>
+        
+        <div class="kurs-content">
+            {{ content }}
+        </div>
+        
+        <footer class="kurs-footer">
+            <a href="{{ '/kurse/' | relative_url }}" class="back-link">← Zurück zu Kursen</a>
+        </footer>
+    </div>
+</article>

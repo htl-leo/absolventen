@@ -1,0 +1,34 @@
+---
+layout: default
+title: Kurse
+---
+
+<section class="section">
+    <div class="container">
+        <div class="section-header">
+            <h1 class="section-title">Kurse & Weiterbildung</h1>
+            <p class="section-subtitle">Weiterbildungsangebote für HTL Leonding Absolventen</p>
+        </div>
+        
+        <div class="event-list">
+            {% for kurs in site.kurse %}
+            <article class="event-item">
+                <h2><a href="{{ kurs.url | relative_url }}">{{ kurs.title }}</a></h2>
+                <div class="card-meta">
+                    {% if kurs.dozent %}
+                    <strong>👨‍🏫 Dozent:</strong> {{ kurs.dozent }}
+                    {% endif %}
+                    {% if kurs.dauer %}
+                    | <strong>⏱️ Dauer:</strong> {{ kurs.dauer }}
+                    {% endif %}
+                    {% if kurs.level %}
+                    | <strong>📊 Level:</strong> {{ kurs.level }}
+                    {% endif %}
+                </div>
+                <p>{{ kurs.excerpt | strip_html | truncatewords: 40 }}</p>
+                <a href="{{ kurs.url | relative_url }}" class="card-link">Zum Kurs</a>
+            </article>
+            {% endfor %}
+        </div>
+    </div>
+</section>

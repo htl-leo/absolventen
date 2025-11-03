@@ -465,6 +465,133 @@ a:hover {
     color: var(--secondary-color);
 }
 
+/* Kurs Styles */
+.kurs-header {
+    padding: 2rem 0;
+    border-bottom: 2px solid var(--border-color);
+    margin-bottom: 2rem;
+}
+
+.kurs-title {
+    font-size: 2.5rem;
+    color: var(--primary-color);
+    margin-bottom: 1rem;
+}
+
+.kurs-meta {
+    display: flex;
+    gap: 2rem;
+    font-size: 1rem;
+    color: #666;
+    flex-wrap: wrap;
+}
+
+.kurs-dozent,
+.kurs-dauer,
+.kurs-level {
+    display: flex;
+    align-items: center;
+}
+
+.kurs-content {
+    max-width: 900px;
+    margin: 0 auto;
+    font-size: 1.1rem;
+    line-height: 1.8;
+}
+
+.kurs-content h2 {
+    color: var(--primary-color);
+    margin-top: 2.5rem;
+    margin-bottom: 1rem;
+    font-size: 2rem;
+    border-bottom: 2px solid var(--secondary-color);
+    padding-bottom: 0.5rem;
+}
+
+.kurs-content h3 {
+    color: var(--secondary-color);
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    font-size: 1.5rem;
+}
+
+.kurs-content h4 {
+    color: var(--primary-color);
+    margin-top: 1.5rem;
+    margin-bottom: 0.75rem;
+    font-size: 1.2rem;
+}
+
+.kurs-content ul,
+.kurs-content ol {
+    margin: 1rem 0 1rem 2rem;
+}
+
+.kurs-content li {
+    margin: 0.5rem 0;
+}
+
+.kurs-content table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 2rem 0;
+}
+
+.kurs-content table th,
+.kurs-content table td {
+    border: 1px solid var(--border-color);
+    padding: 0.75rem;
+    text-align: left;
+}
+
+.kurs-content table th {
+    background-color: var(--primary-color);
+    color: var(--white);
+    font-weight: 600;
+}
+
+.kurs-content table tr:nth-child(even) {
+    background-color: var(--light-bg);
+}
+
+.kurs-content code {
+    background-color: var(--light-bg);
+    padding: 0.2rem 0.4rem;
+    border-radius: 3px;
+    font-family: 'Consolas', 'Monaco', 'Courier New', monospace;
+    font-size: 0.9em;
+}
+
+.kurs-content pre {
+    background-color: #2d2d2d;
+    color: #f8f8f2;
+    padding: 1.5rem;
+    border-radius: 5px;
+    overflow-x: auto;
+    margin: 1.5rem 0;
+}
+
+.kurs-content pre code {
+    background-color: transparent;
+    padding: 0;
+    color: inherit;
+}
+
+.kurs-content blockquote {
+    border-left: 4px solid var(--secondary-color);
+    padding-left: 1.5rem;
+    margin: 1.5rem 0;
+    color: #666;
+    font-style: italic;
+}
+
+.kurs-footer {
+    margin-top: 3rem;
+    padding-top: 2rem;
+    border-top: 1px solid var(--border-color);
+}
+
 /* Utility Classes */
 .text-center {
     text-align: center;

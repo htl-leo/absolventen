@@ -71,6 +71,37 @@ title: Home
 <section class="section">
     <div class="container">
         <div class="section-header">
+            <h2 class="section-title">Kurse & Weiterbildung</h2>
+            <p class="section-subtitle">Erweitern Sie Ihr Wissen mit unseren Fachkursen</p>
+        </div>
+        
+        <div class="grid">
+            {% for kurs in site.kurse limit:3 %}
+            <article class="card">
+                <h3 class="card-title">{{ kurs.title }}</h3>
+                <div class="card-meta">
+                    {% if kurs.dozent %}
+                    <strong>Dozent:</strong> {{ kurs.dozent }}<br>
+                    {% endif %}
+                    {% if kurs.dauer %}
+                    <strong>Dauer:</strong> {{ kurs.dauer }}
+                    {% endif %}
+                </div>
+                <p class="card-excerpt">{{ kurs.excerpt | strip_html | truncatewords: 20 }}</p>
+                <a href="{{ kurs.url | relative_url }}" class="card-link">Zum Kurs</a>
+            </article>
+            {% endfor %}
+        </div>
+        
+        <div class="text-center mt-2">
+            <a href="{{ '/kurse/' | relative_url }}" class="btn">Alle Kurse</a>
+        </div>
+    </div>
+</section>
+
+<section class="section" style="background-color: var(--light-bg);">
+    <div class="container">
+        <div class="section-header">
             <h2 class="section-title">Unsere Partnerfirmen</h2>
             <p class="section-subtitle">Unternehmen, die unsere Absolventen unterstützen</p>
         </div>
@@ -93,7 +124,7 @@ title: Home
     </div>
 </section>
 
-<section class="section" style="background-color: var(--light-bg);">
+<section class="section">
     <div class="container">
         <div class="section-header">
             <h2 class="section-title">Über uns</h2>

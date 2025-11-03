@@ -16,6 +16,9 @@ collections:
   partnerfirmen:
     output: true
     permalink: /partnerfirmen/:path/
+  kurse:
+    output: true
+    permalink: /kurse/:path/
 
 # Defaults
 defaults:
@@ -35,6 +38,11 @@ defaults:
       type: "partnerfirmen"
     values:
       layout: "partner"
+  - scope:
+      path: ""
+      type: "kurse"
+    values:
+      layout: "kurs"
 
 # Exclude files
 exclude:

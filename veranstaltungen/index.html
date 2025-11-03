@@ -1,32 +1,27 @@
 ---
-layout: default
-title: Veranstaltungen
+layout: null
+permalink: /veranstaltungen/
 ---
-
-<section class="section">
-    <div class="container">
-        <div class="section-header">
-            <h1 class="section-title">Veranstaltungen</h1>
-            <p class="section-subtitle">Kommende Events für HTL Leonding Absolventen</p>
-        </div>
-        
-        <div class="event-list">
-            {% assign sorted_events = site.veranstaltungen | sort: 'datum' %}
-            {% for event in sorted_events %}
-            <article class="event-item">
-                <h2><a href="{{ event.url | relative_url }}">{{ event.title }}</a></h2>
-                <div class="card-meta">
-                    {% if event.datum %}
-                    <strong>📅 Datum:</strong> {{ event.datum }}
-                    {% endif %}
-                    {% if event.ort %}
-                    | <strong>📍 Ort:</strong> {{ event.ort }}
-                    {% endif %}
-                </div>
-                <p>{{ event.excerpt | strip_html | truncatewords: 40 }}</p>
-                <a href="{{ event.url | relative_url }}" class="card-link">Details und Anmeldung</a>
-            </article>
-            {% endfor %}
-        </div>
-    </div>
-</section>
+<!doctype html>
+<html lang="de">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="refresh" content="0; url={{ site.baseurl }}/kurse/" />
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="{{ site.baseurl }}/kurse/" />
+    <title>Weiterleitung…</title>
+    <style>
+        body{font-family:system-ui,-apple-system,Segoe UI,Roboto,Ubuntu,Cantarell,Noto Sans,sans-serif;line-height:1.5;margin:2rem;color:#222}
+        a{color:#0a58ca}
+    </style>
+    <script>
+        window.location.replace("{{ site.baseurl }}/kurse/");
+    </script>
+    <noscript>
+        <meta http-equiv="refresh" content="0; url={{ site.baseurl }}/kurse/" />
+    </noscript>
+    </head>
+<body>
+    <p>Weiterleitung zu <a href="{{ site.baseurl }}/kurse/">Kurse</a> …</p>
+</body>
+</html>

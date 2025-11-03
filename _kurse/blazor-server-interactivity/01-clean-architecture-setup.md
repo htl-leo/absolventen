@@ -53,7 +53,7 @@ YourProject/
 ```xml
 <PackageReference Include="Microsoft.EntityFrameworkCore" Version="8.0.0" />
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="8.0.0" />
-<PackageReference Include="Microsoft.EntityFrameworkCore.Sqlite" Version="8.0.0" />
+<PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer" Version="8.0.0" />
 ```
 
 ## Schritt 1: Blazor Server Projekt erstellen
@@ -114,7 +114,7 @@ builder.Services.AddMudServices();
 
 // Database Context
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
-    options.UseSqlite(
+    options.UseSqlServer(
         builder.Configuration.GetConnectionString("DefaultConnection")));
 
 // Application Layer Services (MediatR)
@@ -174,7 +174,7 @@ Fügen Sie die ConnectionString hinzu:
 ```json
 {
   "ConnectionStrings": {
-    "DefaultConnection": "Data Source=yourproject.db"
+        "DefaultConnection": "Server=(localdb)\\mssqllocaldb;Database=YourProjectDb;Trusted_Connection=true;MultipleActiveResultSets=true"
   },
   "Logging": {
     "LogLevel": {

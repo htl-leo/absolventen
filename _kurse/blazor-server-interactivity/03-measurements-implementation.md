@@ -19,7 +19,7 @@ In diesem Modul lernen Sie drei verschiedene Ansätze kennen, um große Datenmen
 
 Sie haben bereits in Modul 1 den Clean Architecture Stack mit folgenden Komponenten aufgesetzt:
 
-- ✅ Entity Framework Core mit SQLite
+- ✅ Entity Framework Core mit SQL Server LocalDB
 - ✅ MediatR für CQRS-Queries
 - ✅ Repository Pattern
 - ✅ Unit of Work Pattern

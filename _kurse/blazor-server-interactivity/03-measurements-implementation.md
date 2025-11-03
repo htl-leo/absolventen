@@ -4,7 +4,7 @@ title: "Modul 3: IoT Measurements - Drei Implementierungsansätze"
 kurs: "Blazor Server Interactivity"
 ---
 
-[← Zurück zur Kursübersicht](../blazor-server-interactivity)
+
 
 # Modul 3: IoT Measurements - Drei Implementierungsansätze
 
@@ -29,7 +29,7 @@ Ihr Projekt sollte diese Entities haben:
 // Domain/Entities/Sensor.cs
 public class Sensor
 {
-    public int Id { get; set; }
+
     public string Name { get; set; } = string.Empty;
     public string Location { get; set; } = string.Empty;
     public ICollection<Measurement> Measurements { get; set; } = [];
@@ -1270,4 +1270,4 @@ Im produktiven Einsatz können Sie erweitern:
 
 ---
 
-[← Zurück zu Modul 2](../02-lifecycle-events) | [Zurück zur Kursübersicht](../blazor-server-interactivity)
+[← Zurück zu Modul 2](../02-lifecycle-events)

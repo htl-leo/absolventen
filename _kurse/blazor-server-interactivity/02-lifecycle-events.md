@@ -4,7 +4,7 @@ title: "Modul 2: Page Lifecycle Events & Prerendering"
 kurs: "Blazor Server Interactivity"
 ---
 
-[← Zurück zur Kursübersicht](../blazor-server-interactivity)
+
 
 # Modul 2: Page Lifecycle Events & Prerendering
 
@@ -66,7 +66,7 @@ Erstellen Sie eine neue Seite `Components/Pages/LifecycleDemo.razor`:
     <div class="border p-3" style="max-height: 400px; overflow-y: auto; background: #f8f9fa; font-family: monospace;">
         @foreach (var log in eventLog)
         {
-            <div>@log</div>
+
         }
     </div>
 </div>
@@ -789,4 +789,4 @@ Im nächsten Modul werden wir praktisch arbeiten und **drei verschiedene Impleme
 
 ---
 
-[← Zurück zu Modul 1](../01-clean-architecture-setup) | [Weiter zu Modul 3: IoT Measurements →](../03-measurements-implementation) | [Zurück zur Kursübersicht](../blazor-server-interactivity)
+[← Zurück zu Modul 1](../01-clean-architecture-setup) | [Weiter zu Modul 3: IoT Measurements →](../03-measurements-implementation)

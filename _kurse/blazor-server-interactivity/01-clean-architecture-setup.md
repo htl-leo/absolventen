@@ -4,7 +4,7 @@ title: "Modul 1: Setup auf Clean Architecture Stack"
 kurs: "Blazor Server Interactivity"
 ---
 
-[← Zurück zur Kursübersicht](../blazor-server-interactivity)
+
 
 # Modul 1: Setup auf Clean Architecture Stack
 
@@ -134,7 +134,7 @@ var app = builder.Build();
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
 {
-    app.UseExceptionHandler("/Error");
+
     app.UseHsts();
 }
 

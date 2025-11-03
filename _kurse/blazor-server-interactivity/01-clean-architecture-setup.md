@@ -286,7 +286,7 @@ using Microsoft.AspNetCore.Components;
 using MediatR;
 using YourProject.Application.Features.Sensors.Queries;
 
-namespace YourProject.Blazor.Server.Components.Pages;
+namespace Blazor.Server.Components.Pages;
 
 public partial class Sensors
 {

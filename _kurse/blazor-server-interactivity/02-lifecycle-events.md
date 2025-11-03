@@ -79,7 +79,7 @@ Jetzt das Code-Behind `LifecycleDemo.razor.cs`:
 using Microsoft.AspNetCore.Components;
 using Microsoft.JSInterop;
 
-namespace YourProject.Blazor.Server.Components.Pages;
+namespace Blazor.Server.Components.Pages;
 
 public partial class LifecycleDemo : IDisposable
 {

@@ -206,7 +206,7 @@ using Application.Features.Measurements.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 
-namespace YourProject.Blazor.Server.Components.Pages;
+namespace Blazor.Server.Components.Pages;
 
 public partial class MeasurementsSimple : ComponentBase
 {
@@ -442,7 +442,7 @@ using Application.Features.Measurements.Queries;
 using MediatR;
 using Microsoft.AspNetCore.Components;
 
-namespace YourProject.Blazor.Server.Components.Pages;
+namespace Blazor.Server.Components.Pages;
 
 public partial class MeasurementsStream : ComponentBase, IDisposable
 {
@@ -891,7 +891,7 @@ using MediatR;
 using Microsoft.AspNetCore.Components;
 using MudBlazor;
 
-namespace YourProject.Blazor.Server.Components.Pages;
+namespace Blazor.Server.Components.Pages;
 
 public partial class MeasurementsMudDataGrid : ComponentBase
 {
